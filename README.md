@@ -1,207 +1,272 @@
-# Revising SQL
+# Database Playground
 
-To practice and revise back SQL.
+## Planning
 
-## Database Design
+### Objective
 
-This will be the database used for practice later.
+* Design and build a rich, flexible database schema as the core of the system.
+* Practice, learn, revise, and experiment with database modeling, normalization, and querying.
+* Explore and apply SDLC principles to a solo backend-focused project.
 
-```mermaid
-classDiagram
+### Success Criteria (Done When)
 
-    namespace Personal_information {
-        class Person {
-            +String id
-            +String Firstname
-            +String Middlename
-            +String Lastname
-            +Gender Gender
-            +DateTime BirthDate
-            +DateTime PassedDate
-            +List<Nationality> Nationalities
-            +List<Race> Races
-            +List<Religion> Religion
-            +List<RealEstate> RealEstates
-            +List<Vehicle> Vehicles
-            +String Description
-            +List<Occupation> Occupations
-        }
+* A well-structured, normalized database schema is created to support various domains.
+* Random data can be generated and consistently inserted into the schema for testing.
+* Core queries and data relationships (e.g., ownership, timelines, associations) work as intended.
+* Example use cases (e.g., simulation, chat, media tracking) can be tested against the database without errors.
 
-        class Nationality {
-            +String id
-            +String NationName
-            +String Description
-        }
+### Goal
 
-        class Gender {
-            +String id
-            +String Name
-            +String Description
-        }
+Develop a general-purpose database that can support multiple real-life-inspired use cases, and use those applications to test and explore the database. This includes:
+* A robust database schema with comprehensive domain coverage.
+* Auto-generated test data to simulate real-world usage.
+* Applications or simulations (optional and incremental) that:
+  * Utilize the data (e.g., simulate life events via auto-sugoroku)
+  * Interact with various domains (e.g., chat, media tracking)
+  * Help evaluate and validate schema quality
 
-        class Race {
-            +String id
-            +String Name
-            +String Description
-        }
+### Scope
 
-        class Religion {
-            +String id
-            +String Name
-            +String Description
-        }
-    }
+This system will cover the following domains:
+* Personal information and identity
+* Employment
+* Property and real estate
+* Finance and banking
+* Media collections and metadata
+* Communication (chat/messages)
 
-    namespace Property_related {
-        class Location {
-            +String id
-            +String Name
-            +Double Latitude
-            +Double Longitude
-            +String Address
-            +String State
-            +String Country
-            +String Description
-        }
+### Constraints
 
-        class RealEstate {
-            +String id
-            +String Name
-            +RealEstateType Type
-            +Location Location
-            +String Description
-        }
+This is a backend-focused project. Therefore:
+* UI/UX is not a priority (CLI, SQL scripts, or minimal interfaces are sufficient).
+* Data accuracy and realism are not required; randomly generated or synthetic data is acceptable.
+* Implementation of simulations or user-facing systems is optional and meant to support testing, not be feature-complete.
 
-        class RealEstateType {
-            +String id
-            +String Name
-            +String Description
-        }
+## Requirement
 
-        class Vehicle {
-            +String id
-            +String Name
-            +VehicleType Type
-            +String Description
-        }
+# Statements
 
-        class VehicleType {
-            +String id
-            +String Name
-            +String Description
-        }
-    }
+"Create a database with detailed information of multiple"
 
-    namespace Finance_related {
-        class Bank {
-            +String id
-            +String Name
-            +String Description
-        }
+Data needed:
+* Personal information and identity
+  * ID
+  * name
+    * first, middle, last, and aliases (multiple)
+  * gender
+  * born and passed date
+  * nationalities (multiple)
+  * qualifications (including educations, licences, and certifications), with start and end date, result, and comments about the student
+    * ID
+    * name of the qualification
+    * type
+    * issuer
+    * description
+  * achievements (with ID, name, type, achived date, and description)
+  * races
+  * religions
+  * spouses (multiple)
+  * past spouses
+  * childrens
+    * father
+    * mother
+  * events (with name, type, start and end date, and description)
+  * occupations (with employer, salary, role, department, company, and working locations)
+  * past occupations (with start and end date)
+  * bank accounts
+  * properties owned (buildings)
+  * lands owned
+  * vehicles owned
+  * media and series collections
+  * mobile phone numbers
+  * e-mail
+  * permanent address (property)
+  * description
+* Employment
+  * role
+  * department
+    * roles
+  * company
+    * ID
+    * name
+    * domains
+    * departments
+* Property and real estate
+* Finance and banking
+* Media collections and metadata
+* Communication (chat/messages)
 
-        class Account {
-            +String id
-            +Bank Bank
-            +List<Person> Users
-            +List<Transaction> Transactions
-        }
+* person information
+  * ID
+  * name
+    * firstname
+    * lastname
+    * middlename
+    * aliases
+  * gender
+  * born date
+  * passed date
+  * nationalities
+  * qualifications (including educations, licences, and certificates)
+    * ID
+    * qualification
+    * start date
+    * end date
+    * result
+    * comment
+  * achievements
+    * ID
+    * achievement
+    * description
+    * achieved date
+  * races
+  * religions
+  * childrens
+  * description
+  * events
+  * occupations
+    * employers
+    * salary
+    * role
+      * description
+    * department    
+      * description
+    * company
+    * working locations
+  * past occupations (same as occupation, except for past)
+    * start date
+    * end date
+  * bank accounts
+  * media and series collections
+  * mobile phone numbers
+  * e-mail
+  * permanent address (property)
+* race
+  * ID
+  * name
+  * description
+* religion
+  * ID
+  * name
+  * description
+* property
+  * ID
+  * name
+  * type
+  * location
+  * address
+  * owners
+  * events
+  * description
+* location
+  * ID
+  * name
+  * coordinate
+    * latitude
+    * longitude
+  * state
+  * country
+  * postcode
+  * owners
+  * events
+  * description
+* vehicle
+  * ID
+  * name
+  * type
+  * owners
+  * events
+  * description
+* company
+  * ID
+  * name
+  * industries
+  * departments
+  * events
+  * descritions
+* qualification issuer
+  * ID
+  * name
+  * type
+  * company
+  * events
+  * description
+* bank
+  * ID
+  * name
+  * company
+  * events
+  * description
+* bank account
+  * ID
+  * owners
+  * balance
+  * bank
+  * events
+* bank transactions
+  * ID
+  * from person
+  * to person
+  * amount
+  * description
+  * date
+* media
+  * ID
+  * name
+  * media category, can be of these categories:
+    * video: animes, cartoons, movies, TV-series, shorts, etc.
+    * audio: podcasts, musics, songs, ani-songs, etc.
+    * reading: comics, mangas, light-novels, novels, magazines, etc.
+  * type
+    * anime, ani-songs, manga, etc.
+  * content
+  * creators
+  * tags
+  * description
+* series
+  * ID
+  * name
+  * medias
+  * description
+* qualification
+  * ID
+  * name
+  * type
+  * issued by
+  * description
+* event
+  * ID
+  * name
+  * type
+  * start date
+  * end date
+  * description
+* conversation
+  * ID
+  * name
+  * description
+  * created on
+  * created by
+  * members
+  * chats
+* chat
+  * from
+  * to
+  * date sent
+  * text content
+  * media
+* achievement
+  * ID
+  * name
+  * type
+  * description
 
-        class Transaction {
-            +String id
-            +String Status
-            +Account From
-            +Account To
-            +Double Amount
-            +String Description
-        }
-    }
+## Design
 
-    namespace Occupation_related {
-        class Occupation {
-            +String id
-            +Role Role
-            +Company Company
-            +Double Salary
-            +List<Location> WorkingLocations
-            +String Description
-        }
+## Coding
 
-        class Role {
-            +String id
-            +String Name
-            +Department Department
-            +String Description
-        }
+## Testing
 
-        class Department {
-            +String id
-            +String Name
-            +String Description
-        }
+## Deployment
 
-        class Company {
-            +String id
-            +String Name
-            +List<Industry> Industries
-            +List<RealEstate> RealEstates
-            +List<Vehicle> Vehicles
-            +String Description
-        }
-
-        class Industry {
-            +String id
-            +String Name
-            +String Description
-        }
-    }
-
-    namespace Media_related {
-        class Media_Base_Class {
-            +String id
-            +Strnig Name
-            +MediaType Type
-            +List<Tag> Tags
-            +String Description
-        }
-
-        class Media {
-            +String Content
-        }
-
-        class MediaType {
-            +String id
-            +String Name
-            +String Description
-        }
-
-        class Media_Episode {
-            +String id
-            +String Index
-            +Media Media
-        }
-
-        class MediaSeason_Episode {
-            +String id
-            +String Index
-            +MediaSeason Season
-        }
-
-        class MediaSeason {
-            +List<Media_Episode> Season
-        }
-
-        class MediaSeries {
-            +String id
-            +String Name
-            +List<MediaSeason_Episode> Seasons
-            +List<Media_Episode> Medias
-            +String Description
-        }
-
-        class Tag {
-            +String id
-            +String Name
-            +String Description
-        }
-    }
-```
+## Maintenance
